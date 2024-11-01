@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="PrayerPal.View.HomePage"
+             xmlns:viewmodel="clr-namespace:PrayerPal.ViewModel"
+            x:DataType="viewmodel:HomePageViewModel"
+            xmlns:model="clr-namespace:PrayerPal.Model"
+             Title="{Binding Title}"
+             Shell.BackgroundColor="black"
+
+            >
+
+    <ContentPage.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarColor="{StaticResource Primary}" StatusBarStyle="LightContent" />
+    </ContentPage.Behaviors>
+
+    <Shell.TitleView >
+        <Grid BackgroundColor="Black">
+            <Label FontSize="Title"  Text="{Binding Title}" HorizontalOptions="Center" VerticalOptions="Center" />
+        </Grid>
+    </Shell.TitleView>
+
+    <RefreshView IsRefreshing="{Binding IsRefreshing}"
+             Command="{Binding GetPrayerTimesCommandCommand}"
+                 >
+        <StackLayout Padding="20">
+            <Label Text="Prayer Times" FontSize="Title" HorizontalOptions="Center" Margin="0,0,0,20"/>
+
+            <CollectionView ItemsSource="{Binding PrayerTimes}" IsVisible="{Binding IsNotBusy}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:PrayerTime">
+                        <Frame BackgroundColor="Black">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HomePageViewModel}}, Path=SaySpeechCommand}"
+                                    CommandParameter="{Binding .}">
+                                </TapGestureRecognizer>
+                            </Frame.GestureRecognizers>
+                            <StackLayout MaximumWidthRequest="500" Orientation="Horizontal" Padding="10">
+                                <Label Text="{Binding PrayerName}" FontSize="Large" />
+                                <Label Text="{Binding Time}" FontSize="Medium" HorizontalOptions="EndAndExpand"/>
+                            </StackLayout>
+                        </Frame>
+                        
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <ActivityIndicator IsVisible="{Binding IsBusy}"
+                IsRunning="{Binding IsBusy}"
+                HorizontalOptions="Fill"
+                VerticalOptions="Center"
+                Color="{StaticResource Primary}"
+                />
+        </StackLayout>
+               
+    </RefreshView>
+
+
+    
+
+
+
+        
+
+        
+</ContentPage>
+
+
+<!--Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HomePageViewModel}}, Path=TestCommand}"-->

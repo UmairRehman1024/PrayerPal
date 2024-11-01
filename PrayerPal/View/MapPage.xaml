@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PrayerPal.View.MapPage"
+             Title="{Binding Title}"
+              xmlns:viewmodel="clr-namespace:PrayerPal.ViewModel"
+             xmlns:model="clr-namespace:PrayerPal.Model"
+             x:DataType="viewmodel:MapViewModel"
+             xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+             xmlns:behaviors="clr-namespace:PrayerPal.Behaviors"
+                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit" 
+             Shell.BackgroundColor="black"
+             >
+
+    <ContentPage.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarColor="{StaticResource Primary}" StatusBarStyle="LightContent" />
+    </ContentPage.Behaviors>
+
+    <!--xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="PrayerPal.View.HomePage"
+             xmlns:viewmodel="clr-namespace:PrayerPal.ViewModel"
+            x:DataType="viewmodel:HomePageViewModel"
+            xmlns:model="clr-namespace:PrayerPal.Model"
+             Title="{Binding Title}"-->
+
+    <Shell.TitleView >
+        <Grid BackgroundColor="Black">
+            <Label FontSize="Title"  Text="{Binding Title}" HorizontalOptions="Center" VerticalOptions="Center" />
+        </Grid>
+    </Shell.TitleView>
+
+    
+        <Grid Padding="10">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+
+
+        <maps:Map Grid.Row="0" ItemsSource="{Binding Mosques}" IsVisible="{Binding IsNotBusy} ">
+
+            <maps:Map.Behaviors>
+                <behaviors:MapBehavior
+                    IsReady="{Binding IsReady}"
+                    Places="{Binding Mosques}"
+                    Selected="{Binding SelectedMosque}">
+                </behaviors:MapBehavior>
+            </maps:Map.Behaviors>
+            
+            <maps:Map.ItemTemplate>
+                <DataTemplate x:DataType="model:Mosque">
+                    <maps:Pin Location="{Binding Location}"
+                              Label="{Binding Name}"
+                              >
+                      
+
+                    </maps:Pin>
+                </DataTemplate>
+            </maps:Map.ItemTemplate>
+            
+        </maps:Map>
+
+        <RefreshView Grid.Row="2" IsRefreshing="{Binding IsRefreshing}"
+      Command="{Binding GetNearestMosquesCommand}"
+          >
+        
+        <CollectionView  ItemsSource="{Binding Mosques}"  IsVisible="{Binding IsNotBusy} ">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Mosque">
+                    <Frame Padding="10" 
+                           BackgroundColor="{DynamicResource Primary}"
+                           MaximumWidthRequest="600"
+                           >
+                        
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MapViewModel}}, Path=UpdateSelectedMosqueCommand}"
+                                CommandParameter="{Binding .}"/>
+                        </Frame.GestureRecognizers>
+                    
+                    <StackLayout >
+                        <Label Text="{Binding Name}"
+                               FontAttributes="Bold"
+                               FontSize="Medium"
+                               HorizontalTextAlignment="Center"
+                               />
+                        <!--<Label Text="{Binding Location.Latitude}"
+                               FontSize="Medium"/>
+                        <Label Text="{Binding Location.Longitude}"
+                               FontSize="Medium"/>-->
+
+                    </StackLayout>
+                    </Frame>
+                </DataTemplate>
+
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+        </RefreshView>
+
+
+        <ActivityIndicator 
+            IsVisible="{Binding IsBusy}"
+            IsRunning="{Binding IsBusy}"
+            HorizontalOptions="Fill"
+            VerticalOptions="Center"
+            Color="{StaticResource Primary}"
+            
+        />
+
+    </Grid>
+
+
+
+
+
+</ContentPage>

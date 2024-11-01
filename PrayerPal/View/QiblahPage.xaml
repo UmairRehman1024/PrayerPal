@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PrayerPal.View.QiblahPage"
+             Title="{Binding Title}"
+             xmlns:viewmodel="clr-namespace:PrayerPal.ViewModel"
+             x:DataType="viewmodel:QiblahViewModel"
+             xmlns:gauge="clr-namespace:Syncfusion.Maui.Gauges;assembly=Syncfusion.Maui.Gauges"
+             Shell.BackgroundColor="black"
+            xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             >
+
+    <ContentPage.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarColor="{StaticResource Primary}" StatusBarStyle="LightContent" />
+    </ContentPage.Behaviors>
+
+    <Shell.TitleView >
+        <Grid BackgroundColor="Black">
+            <Label FontSize="Title"  Text="{Binding Title}" HorizontalOptions="Center" VerticalOptions="Center" />
+        </Grid>
+    </Shell.TitleView>
+
+    <VerticalStackLayout>
+        <!--<Label 
+            Text="Qiblah"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+        <Label Text="{Binding directionString}" 
+               TextColor="white"
+               VerticalOptions="Center" 
+               HorizontalOptions="Center"
+               FontSize="Large"
+               />
+
+        <Label Text="{Binding QiblahDirection}" TextColor="white"/>
+
+
+        Grid>
+            <Image x:Name="compassImage"
+               Source="compass.png"
+               Aspect="AspectFit"
+               VerticalOptions="CenterAndExpand"
+               HorizontalOptions="CenterAndExpand"
+               Rotation="{Binding Direction}"/>
+
+            <Image x:Name="arrowImage"
+               Source="thin_up_arrow.png"
+               Aspect="AspectFit"
+               VerticalOptions="CenterAndExpand"
+               HorizontalOptions="CenterAndExpand"
+               Rotation="{Binding QiblahDirection}"/>
+        </Grid>-->
+
+        <gauge:SfRadialGauge x:Name="compassGauge">
+            <gauge:SfRadialGauge.Axes>
+                <gauge:RadialAxis ShowAxisLine="False"
+                              TickPosition="Outside"
+                              LabelPosition="Outside"
+                              StartAngle="-90"
+                              EndAngle="270"
+                             
+                              
+                                 
+                              
+                              RadiusFactor="0.7"
+                              MinorTicksPerInterval="10"
+                              Minimum="0"
+                              Maximum="360"
+                              ShowLastLabel="False"
+                              Interval="30"
+                              OffsetUnit="Factor">
+                    <gauge:RadialAxis.MajorTickStyle>
+                        <gauge:RadialTickStyle LengthUnit="Factor"
+                                           StrokeThickness="2"
+                                           Length="0.12" />
+                    </gauge:RadialAxis.MajorTickStyle>
+                    <gauge:RadialAxis.MinorTickStyle>
+                        <gauge:RadialTickStyle LengthUnit="Factor"
+                                           Length="0.12" />
+                    </gauge:RadialAxis.MinorTickStyle>
+                    <gauge:RadialAxis.Pointers>
+                        <!--<gauge:ShapePointer Value="310"
+                                        ShapeType="Triangle" />-->
+                        <gauge:NeedlePointer Value="{Binding QiblahDirection}" NeedleFill="White"/>
+                        <gauge:NeedlePointer Value="270"
+                                         NeedleLengthUnit="Factor"
+                                         NeedleLength="0.7"
+                                         NeedleStartWidth="1"
+                                         NeedleEndWidth="1"
+                                         NeedleFill="White"
+                                         KnobRadius="0"
+                                         TailLengthUnit="Factor"
+                                         TailLength="0.7"
+                                         TailWidth="1"
+                                         TailFill="#FFC4C4C4">
+                        </gauge:NeedlePointer>
+                        <gauge:NeedlePointer Value="180"
+                                         NeedleLengthUnit="Factor"
+                                         NeedleLength="0.7"
+                                         NeedleStartWidth="1"
+                                         NeedleEndWidth="1"
+                                         NeedleFill="#FFC4C4C4"
+                                         KnobRadius="0"
+                                         TailLengthUnit="Factor"
+                                         TailLength="0.7"
+                                         TailWidth="1"
+                                         TailFill="#FFC4C4C4">
+                        </gauge:NeedlePointer>
+                    </gauge:RadialAxis.Pointers>
+
+                    <!--<gauge:RadialAxis.Annotations>
+                        <gauge:GaugeAnnotation DirectionValue="180"
+                                           PositionFactor="0.8">
+                            <gauge:GaugeAnnotation.Content>
+                                <Label Text="W"
+                                   FontAttributes="Bold"
+                                   FontSize="18"
+                                   TextColor="white" />
+                            </gauge:GaugeAnnotation.Content>
+                        </gauge:GaugeAnnotation>
+                        <gauge:GaugeAnnotation DirectionValue="270"
+                                                               PositionFactor="0.8">
+                            <gauge:GaugeAnnotation.Content>
+                                <Label Text="N"
+                                                       FontAttributes="Bold"
+                                                       FontSize="18"
+                                                       TextColor="White" />
+                            </gauge:GaugeAnnotation.Content>
+                        </gauge:GaugeAnnotation>
+                        <gauge:GaugeAnnotation DirectionValue="90"
+                                                               PositionFactor="0.8">
+                            <gauge:GaugeAnnotation.Content>
+                                <Label Text="S"
+                                                       FontAttributes="Bold"
+                                                       FontSize="18"
+                                                       TextColor="White" />
+                            </gauge:GaugeAnnotation.Content>
+                        </gauge:GaugeAnnotation>
+                        <gauge:GaugeAnnotation DirectionValue="0"
+                                                               PositionFactor="0.8">
+                            <gauge:GaugeAnnotation.Content>
+                                <Label Text="E"
+                                                       FontAttributes="Bold"
+                                                       FontSize="18"
+                                                       TextColor="White" />
+                            </gauge:GaugeAnnotation.Content>
+                        </gauge:GaugeAnnotation>
+                    </gauge:RadialAxis.Annotations>-->
+                </gauge:RadialAxis>
+            </gauge:SfRadialGauge.Axes>
+        </gauge:SfRadialGauge>
+
+
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+            <Label Text="Vibration" VerticalOptions="Center"/>
+            <Switch IsToggled="{Binding IsToggled}" />
+        </StackLayout>
+        
+
+    </VerticalStackLayout>
+</ContentPage>
