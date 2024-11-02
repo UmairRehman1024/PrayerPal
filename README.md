@@ -17,3 +17,9 @@ Uses the device’s compass sensor to ensure accuracy and adjust based on locati
 ## Platform Support
 Originally, this application was developed to support both Android and Windows platforms. However, due to an unresolved issue in the Windows version, only the Android version is currently functional and fully supported.
 
+
+## Video Showcase
+[![App Demo](https://img.youtube.com/vi/j67lwCUmKk4/0.jpg)](https://youtu.be/j67lwCUmKk4)
+
+
+
