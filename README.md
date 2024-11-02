@@ -14,6 +14,6 @@ Offers distance and direction information to each nearby mosque, making it easy 
 Provides a compass to indicate the Qiblah direction, allowing users to pray in the correct direction.
 Uses the device’s compass sensor to ensure accuracy and adjust based on location changes.
 
-##Platform Support
+## Platform Support
 Originally, this application was developed to support both Android and Windows platforms. However, due to an unresolved issue in the Windows version, only the Android version is currently functional and fully supported.
 
